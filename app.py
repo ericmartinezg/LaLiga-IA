@@ -1,0 +1,154 @@
+import streamlit as st
+import pandas as pd
+# import joblib
+
+st.set_page_config(page_title="Calculadora IA LaLiga", page_icon="⚽", layout="wide", initial_sidebar_state="collapsed")
+
+st.markdown("""
+<style>
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
+    .stDeployButton {display:none;}
+    .stApp {
+        background-color: #102216;
+        background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .03) 25%, rgba(255, 255, 255, .03) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .03) 75%, rgba(255, 255, 255, .03) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .03) 25%, rgba(255, 255, 255, .03) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .03) 75%, rgba(255, 255, 255, .03) 76%, transparent 77%, transparent);
+        background-size: 50px 50px;
+        color: #ffffff;
+        font-family: 'Lexend', sans-serif;
+    }
+    .stButton > button {
+        background-color: #13ec5b !important;
+        color: #102216 !important;
+        font-weight: 900 !important;
+        font-size: 1.25rem !important;
+        text-transform: uppercase !important;
+        padding: 1rem 3rem !important;
+        border-radius: 0.75rem !important;
+        border: none !important;
+        box-shadow: 0 0 20px rgba(19,236,91,0.4) !important;
+        width: 100%;
+        transition: all 0.2s ease-in-out !important;
+    }
+    .stButton > button:hover {
+        box-shadow: 0 0 30px rgba(19,236,91,0.6) !important;
+        transform: scale(1.05) !important;
+    }
+    div[data-baseweb="select"] > div {
+        background-color: #102216;
+        border-color: rgba(255,255,255,0.1);
+        color: white;
+        border-radius: 0.5rem;
+    }
+    .team-card {
+        background-color: #152e1e;
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    .vs-badge {
+        display: flex; align-items: center; justify-content: center;
+        width: 5rem; height: 5rem; border-radius: 9999px;
+        background-color: #102216; border: 4px solid #152e1e;
+        box-shadow: 0 0 20px rgba(19,236,91,0.2);
+        font-size: 1.875rem; font-weight: 900; font-style: italic; margin: 0 auto;
+    }
+    .result-card {
+        background-color: rgba(21, 46, 30, 0.5);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 0.75rem; padding: 1rem;
+    }
+    .badge-success { background-color: rgba(34, 197, 94, 0.1); color: #22c55e; padding: 0.125rem 0.5rem; border-radius: 0.25rem; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; }
+    .badge-error { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.125rem 0.5rem; border-radius: 0.25rem; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; }
+</style>
+""", unsafe_allow_html=True)
+
+col_logo, col_nav = st.columns([1, 1])
+with col_logo:
+    st.markdown("""<div style="display: flex; align-items: center; gap: 0.75rem;"><div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: linear-gradient(to top right, #13ec5b, #0fa841); display: flex; align-items: center; justify-content: center; color: #102216; font-weight: bold;">⚽</div><h1 style="font-size: 1.125rem; margin: 0;">Calculadora <span style="color: #13ec5b;">IA</span> LaLiga</h1></div>""", unsafe_allow_html=True)
+with col_nav:
+    st.page_link("pages/resultados.py", label="Resultados por Jornada", icon="📅")
+
+st.markdown("<h2 style='text-align: center; font-size: 3rem; margin-top: 2rem;'>Predictor de Partidos</h2>", unsafe_allow_html=True)
+st.markdown("<p style='color: #94a3b8; font-size: 1.125rem; text-align: center; margin-bottom: 2rem;'>Selecciona dos equipos para generar un pronóstico impulsado por IA basado en datos históricos, estado de forma y reportes de lesiones.</p>", unsafe_allow_html=True)
+
+equipos = ["Real Madrid", "Barcelona", "Atlético de Madrid", "Sevilla", "Real Betis", "Real Sociedad", "Villarreal", "Athletic Club", "Valencia", "Osasuna", "Mallorca", "Getafe", "Celta de Vigo", "Rayo Vallecano", "Girona", "Alavés", "Las Palmas", "Granada", "Almería", "Cádiz"]
+
+col1, col2, col3 = st.columns([2, 1, 2])
+
+with col1:
+    st.markdown("""<div class="team-card"><div style="font-size: 0.75rem; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; text-align: left; margin-bottom: 1rem;">Local</div><div style="width: 8rem; height: 8rem; border-radius: 50%; background-color: rgba(255,255,255,0.05); border: 4px solid rgba(255,255,255,0.05); margin: 0 auto 1.5rem auto; display: flex; align-items: center; justify-content: center; font-size: 3rem;">🛡️</div></div>""", unsafe_allow_html=True)
+    equipo_local = st.selectbox("Seleccionar Equipo Local", equipos, index=0, label_visibility="collapsed")
+
+with col2:
+    st.markdown("<div style='height: 50%;'></div><div class='vs-badge'>VS</div>", unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""<div class="team-card"><div style="font-size: 0.75rem; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; text-align: right; margin-bottom: 1rem;">Visitante</div><div style="width: 8rem; height: 8rem; border-radius: 50%; background-color: rgba(255,255,255,0.05); border: 4px solid rgba(255,255,255,0.05); margin: 0 auto 1.5rem auto; display: flex; align-items: center; justify-content: center; font-size: 3rem;">🛡️</div></div>""", unsafe_allow_html=True)
+    equipo_visitante = st.selectbox("Seleccionar Equipo Visitante", equipos, index=1, label_visibility="collapsed")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+with col_btn2:
+    if st.button("✨ VER PREDICCIÓN DE LA IA"):
+        st.success(f"Generando predicción para {equipo_local} vs {equipo_visitante}...")
+        
+        # import pandas as pd
+        # import joblib
+        # modelo = joblib.load('modelo_laliga_v1.pkl')
+        # datos_partido = pd.DataFrame({'equipo_local': [equipo_local], 'equipo_visitante': [equipo_visitante]})
+        # probabilidades = modelo.predict_proba(datos_partido)[0]
+        
+        st.markdown("""
+        <div style="display: flex; justify-content: space-between; text-align: center; background-color: rgba(255,255,255,0.05); border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; border: 1px solid rgba(19,236,91,0.3);">
+            <div style="flex: 1; padding: 0.5rem; background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.4); border-radius: 0.25rem;">
+                <div style="font-size: 0.625rem; text-transform: uppercase; color: #13ec5b; font-weight: bold;">Local</div>
+                <div style="font-size: 1.5rem; font-weight: 900; color: white;">65%</div>
+            </div>
+            <div style="flex: 1; padding: 0.5rem;">
+                <div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Empate</div>
+                <div style="font-size: 1.25rem; font-weight: bold; color: #cbd5e1;">20%</div>
+            </div>
+            <div style="flex: 1; padding: 0.5rem;">
+                <div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Visita</div>
+                <div style="font-size: 1.25rem; font-weight: bold; color: #cbd5e1;">15%</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+st.markdown("<p style='text-align: center; font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;'>*Predicciones basadas en datos históricos. Juegue con responsabilidad.</p><br><br>", unsafe_allow_html=True)
+
+col_r1, col_r2, col_r3 = st.columns(3)
+
+def render_mini_result(jornada, match, status, p_local, p_empate, p_visita, highlight):
+    status_class = "badge-success" if status == "✅ Acertó" else "badge-error"
+    bg_local = "background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.4); border-radius: 0.25rem;" if highlight == 1 else ""
+    color_local = "#13ec5b" if highlight == 1 else "#cbd5e1"
+    bg_empate = "background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.4); border-radius: 0.25rem;" if highlight == 2 else ""
+    color_empate = "#13ec5b" if highlight == 2 else "#cbd5e1"
+    bg_visita = "background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.4); border-radius: 0.25rem;" if highlight == 3 else ""
+    color_visita = "#13ec5b" if highlight == 3 else "#cbd5e1"
+    
+    return f"""
+    <div class="result-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: #cbd5e1;">📅 {jornada}: {match}</div>
+            <span class="{status_class}">{status}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.5rem; margin-top: 0.25rem;">
+            <div style="flex: 1; padding: 0.25rem; {bg_local}"><div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Local</div><div style="font-size: 1.125rem; font-weight: bold; color: {color_local};">{p_local}</div></div>
+            <div style="flex: 1; padding: 0.25rem; {bg_empate}"><div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Empate</div><div style="font-size: 1.125rem; font-weight: bold; color: {color_empate};">{p_empate}</div></div>
+            <div style="flex: 1; padding: 0.25rem; {bg_visita}"><div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Visita</div><div style="font-size: 1.125rem; font-weight: bold; color: {color_visita};">{p_visita}</div></div>
+        </div>
+    </div>
+    """
+
+with col_r1:
+    st.markdown(render_mini_result("Jornada 24", "RMA vs BAR", "✅ Acertó", "65%", "20%", "15%", 1), unsafe_allow_html=True)
+with col_r2:
+    st.markdown(render_mini_result("Jornada 24", "ATM vs SEV", "❌ Falló", "33%", "42%", "25%", 2), unsafe_allow_html=True)
+with col_r3:
+    st.markdown(render_mini_result("Jornada 23", "VAL vs BET", "✅ Acertó", "22%", "20%", "58%", 3), unsafe_allow_html=True)
+
+st.markdown("""<div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;"><div style="font-size: 0.875rem; color: #64748b;">©2026 Eric Martínez García</div><div style="display: flex; gap: 1.5rem;"><a href="#" style="font-size: 0.875rem; color: #64748b; text-decoration: none;">Metodología</a><a href="#" style="font-size: 0.875rem; color: #64748b; text-decoration: none;">Política de Privacidad</a><a href="#" style="font-size: 0.875rem; color: #64748b; text-decoration: none;">Términos de Servicio</a></div></div>""", unsafe_allow_html=True)
