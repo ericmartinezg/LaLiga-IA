@@ -91,31 +91,53 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
 with col_btn2:
-    if st.button("✨ VER PREDICCIÓN DE LA IA"):
-        st.success(f"Generando predicción para {equipo_local} vs {equipo_visitante}...")
-        
-        # import pandas as pd
-        # import joblib
-        # modelo = joblib.load('modelo_laliga_v1.pkl')
-        # datos_partido = pd.DataFrame({'equipo_local': [equipo_local], 'equipo_visitante': [equipo_visitante]})
-        # probabilidades = modelo.predict_proba(datos_partido)[0]
-        
-        st.markdown("""
-        <div style="display: flex; justify-content: space-between; text-align: center; background-color: rgba(255,255,255,0.05); border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; border: 1px solid rgba(19,236,91,0.3);">
-            <div style="flex: 1; padding: 0.5rem; background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.4); border-radius: 0.25rem;">
-                <div style="font-size: 0.625rem; text-transform: uppercase; color: #13ec5b; font-weight: bold;">Local</div>
-                <div style="font-size: 1.5rem; font-weight: 900; color: white;">65%</div>
+if st.button("✨ VER PREDICCIÓN DE LA IA"):
+        if equipo_local == equipo_visitante:
+            st.error("¡Un equipo no puede jugar contra sí mismo!")
+        else:
+            st.success(f"Generando predicción para {equipo_local} vs {equipo_visitante}...")
+            
+            # 1. Tus cálculos matemáticos originales
+            elo_l = elo_dict.get(equipo_local, 1500)
+            elo_v = elo_dict.get(equipo_visitante, 1500)
+            
+            hist_l = df_historial[df_historial['HomeTeam'] == equipo_local]
+            ataque_l = hist_l['Ataque_Local_5p'].iloc[-1] if not hist_l.empty else media_goles
+            defensa_l = hist_l['Defensa_Local_5p'].iloc[-1] if not hist_l.empty else media_goles
+            
+            hist_v = df_historial[df_historial['AwayTeam'] == equipo_visitante]
+            ataque_v = hist_v['Ataque_Visitante_5p'].iloc[-1] if not hist_v.empty else media_goles
+            defensa_v = hist_v['Defensa_Visitante_5p'].iloc[-1] if not hist_v.empty else media_goles
+            
+            datos_hoy = pd.DataFrame({
+                'Ataque_Local_5p': [ataque_l], 'Defensa_Local_5p': [defensa_l],
+                'Ataque_Visitante_5p': [ataque_v], 'Defensa_Visitante_5p': [defensa_v],
+                'Elo_Local': [elo_l], 'Elo_Visitante': [elo_v]
+            })
+            
+            # Sacamos las probabilidades reales
+            prob = modelo.predict_proba(datos_hoy)[0]
+            prob_local = f"{prob[0]*100:.1f}%"
+            prob_empate = f"{prob[1]*100:.1f}%"
+            prob_visita = f"{prob[2]*100:.1f}%"
+            
+            # 2. Inyectamos los resultados reales en el HTML de la IA
+            st.markdown(f"""
+            <div style="display: flex; justify-content: space-between; text-align: center; background-color: rgba(255,255,255,0.05); border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; border: 1px solid rgba(19,236,91,0.3);">
+                <div style="flex: 1; padding: 0.5rem; background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.4); border-radius: 0.25rem;">
+                    <div style="font-size: 0.625rem; text-transform: uppercase; color: #13ec5b; font-weight: bold;">Local</div>
+                    <div style="font-size: 1.5rem; font-weight: 900; color: white;">{prob_local}</div>
+                </div>
+                <div style="flex: 1; padding: 0.5rem;">
+                    <div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Empate</div>
+                    <div style="font-size: 1.25rem; font-weight: bold; color: #cbd5e1;">{prob_empate}</div>
+                </div>
+                <div style="flex: 1; padding: 0.5rem;">
+                    <div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Visita</div>
+                    <div style="font-size: 1.25rem; font-weight: bold; color: #cbd5e1;">{prob_visita}</div>
+                </div>
             </div>
-            <div style="flex: 1; padding: 0.5rem;">
-                <div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Empate</div>
-                <div style="font-size: 1.25rem; font-weight: bold; color: #cbd5e1;">20%</div>
-            </div>
-            <div style="flex: 1; padding: 0.5rem;">
-                <div style="font-size: 0.625rem; text-transform: uppercase; color: #94a3b8; font-weight: bold;">Visita</div>
-                <div style="font-size: 1.25rem; font-weight: bold; color: #cbd5e1;">15%</div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
 st.markdown("<p style='text-align: center; font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;'>*Predicciones basadas en datos históricos. Juegue con responsabilidad.</p><br><br>", unsafe_allow_html=True)
 
