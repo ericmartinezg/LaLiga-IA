@@ -8,11 +8,11 @@ st.set_page_config(page_title="Calculadora IA LaLiga", page_icon="⚽", layout="
 # --- 2. CARGA DEL CEREBRO DE LA IA (Para que no dé error al predecir) ---
 @st.cache_resource
 def cargar_datos():
-    # Intenta cargar el modelo. (Asegúrate de que modelo_laliga_v1.pkl esté en la misma carpeta)
     try:
         return joblib.load('modelo_laliga_v1.pkl')
     except Exception as e:
-        st.error(f"Error al cargar el modelo: No se encuentra 'modelo_laliga_v1.pkl'.")
+        # ¡Ahora sí vamos a ver el error real!
+        st.error(f"Error REAL detectado por Python: {e}")
         return None
 
 datos = cargar_datos()
