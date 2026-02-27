@@ -98,8 +98,11 @@ with col_nav:
 st.markdown("<h2 style='text-align: center; font-size: 3rem; margin-top: 2rem;'>Predictor de Partidos</h2>", unsafe_allow_html=True)
 st.markdown("<p style='color: #94a3b8; font-size: 1.125rem; text-align: center; margin-bottom: 2rem;'>Selecciona dos equipos para generar un pronóstico impulsado por IA basado en datos históricos, estado de forma y reportes de lesiones.</p>", unsafe_allow_html=True)
 
-equipos = ["Real Madrid", "Barcelona", "Atlético de Madrid", "Sevilla", "Real Betis", "Real Sociedad", "Villarreal", "Athletic Club", "Valencia", "Osasuna", "Mallorca", "Getafe", "Celta de Vigo", "Rayo Vallecano", "Girona", "Alavés", "Las Palmas", "Granada", "Almería", "Cádiz"]
-
+equipos = [
+    "Alavés", "Athletic Club", "Atlético de Madrid", "Barcelona", 
+    "Celta de Vigo", "Getafe", "Girona", "Mallorca", "Osasuna", "Rayo Vallecano", "Real Betis", 
+    "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante"
+]
 # --- 5. SELECTORES DE EQUIPOS ---
 col1, col2, col3 = st.columns([2, 1, 2])
 
