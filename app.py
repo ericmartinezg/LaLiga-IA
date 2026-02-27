@@ -1,9 +1,34 @@
 import streamlit as st
 import pandas as pd
-# import joblib
+import joblib
 
+# --- 1. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="Calculadora IA LaLiga", page_icon="⚽", layout="wide", initial_sidebar_state="collapsed")
 
+# --- 2. CARGA DEL CEREBRO DE LA IA (Para que no dé error al predecir) ---
+@st.cache_resource
+def cargar_datos():
+    # Intenta cargar el modelo. (Asegúrate de que modelo_laliga_v1.pkl esté en la misma carpeta)
+    try:
+        return joblib.load('modelo_laliga_v1.pkl')
+    except Exception as e:
+        st.error(f"Error al cargar el modelo: No se encuentra 'modelo_laliga_v1.pkl'.")
+        return None
+
+datos = cargar_datos()
+
+# Solo asignamos variables si el modelo cargó bien
+if datos:
+    modelo = datos['modelo']
+    elo_dict = datos['elo_diccionario']
+    media_goles = datos['media_goles']
+    df_historial = datos['historial']
+else:
+    # Variables vacías de seguridad para que la web no explote si falta el archivo
+    modelo, elo_dict, media_goles = None, {}, 0
+    df_historial = pd.DataFrame()
+
+# --- 3. DISEÑO Y CSS ---
 st.markdown("""
 <style>
     header {visibility: hidden;}
@@ -63,6 +88,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# --- 4. HEADER Y NAVEGACIÓN ---
 col_logo, col_nav = st.columns([1, 1])
 with col_logo:
     st.markdown("""<div style="display: flex; align-items: center; gap: 0.75rem;"><div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: linear-gradient(to top right, #13ec5b, #0fa841); display: flex; align-items: center; justify-content: center; color: #102216; font-weight: bold;">⚽</div><h1 style="font-size: 1.125rem; margin: 0;">Calculadora <span style="color: #13ec5b;">IA</span> LaLiga</h1></div>""", unsafe_allow_html=True)
@@ -74,6 +100,7 @@ st.markdown("<p style='color: #94a3b8; font-size: 1.125rem; text-align: center; 
 
 equipos = ["Real Madrid", "Barcelona", "Atlético de Madrid", "Sevilla", "Real Betis", "Real Sociedad", "Villarreal", "Athletic Club", "Valencia", "Osasuna", "Mallorca", "Getafe", "Celta de Vigo", "Rayo Vallecano", "Girona", "Alavés", "Las Palmas", "Granada", "Almería", "Cádiz"]
 
+# --- 5. SELECTORES DE EQUIPOS ---
 col1, col2, col3 = st.columns([2, 1, 2])
 
 with col1:
@@ -89,15 +116,20 @@ with col3:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
+# --- 6. BOTÓN MÁGICO Y LÓGICA DE IA ---
 col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+
 with col_btn2:
-if st.button("✨ VER PREDICCIÓN DE LA IA"):
+    # ¡Aquí estaba el error! Ahora está bien indentado
+    if st.button("✨ VER PREDICCIÓN DE LA IA"):
         if equipo_local == equipo_visitante:
             st.error("¡Un equipo no puede jugar contra sí mismo!")
+        elif datos is None:
+            st.error("El modelo de IA no está cargado. Asegúrate de tener 'modelo_laliga_v1.pkl'.")
         else:
             st.success(f"Generando predicción para {equipo_local} vs {equipo_visitante}...")
             
-            # 1. Tus cálculos matemáticos originales
+            # Cálculos matemáticos
             elo_l = elo_dict.get(equipo_local, 1500)
             elo_v = elo_dict.get(equipo_visitante, 1500)
             
@@ -121,7 +153,7 @@ if st.button("✨ VER PREDICCIÓN DE LA IA"):
             prob_empate = f"{prob[1]*100:.1f}%"
             prob_visita = f"{prob[2]*100:.1f}%"
             
-            # 2. Inyectamos los resultados reales en el HTML de la IA
+            # Inyectamos los resultados
             st.markdown(f"""
             <div style="display: flex; justify-content: space-between; text-align: center; background-color: rgba(255,255,255,0.05); border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; border: 1px solid rgba(19,236,91,0.3);">
                 <div style="flex: 1; padding: 0.5rem; background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.4); border-radius: 0.25rem;">
@@ -141,6 +173,7 @@ if st.button("✨ VER PREDICCIÓN DE LA IA"):
 
 st.markdown("<p style='text-align: center; font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;'>*Predicciones basadas en datos históricos. Juegue con responsabilidad.</p><br><br>", unsafe_allow_html=True)
 
+# --- 7. TARJETAS DE HISTORIAL DE PREDICCIONES ---
 col_r1, col_r2, col_r3 = st.columns(3)
 
 def render_mini_result(jornada, match, status, p_local, p_empate, p_visita, highlight):
@@ -173,4 +206,5 @@ with col_r2:
 with col_r3:
     st.markdown(render_mini_result("Jornada 23", "VAL vs BET", "✅ Acertó", "22%", "20%", "58%", 3), unsafe_allow_html=True)
 
+# --- 8. FOOTER ---
 st.markdown("""<div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;"><div style="font-size: 0.875rem; color: #64748b;">©2026 Eric Martínez García</div><div style="display: flex; gap: 1.5rem;"><a href="#" style="font-size: 0.875rem; color: #64748b; text-decoration: none;">Metodología</a><a href="#" style="font-size: 0.875rem; color: #64748b; text-decoration: none;">Política de Privacidad</a><a href="#" style="font-size: 0.875rem; color: #64748b; text-decoration: none;">Términos de Servicio</a></div></div>""", unsafe_allow_html=True)
