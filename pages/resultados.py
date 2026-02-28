@@ -46,10 +46,9 @@ st.markdown("<p style='color: #92c9a4; font-size: 1.125rem; max-width: 42rem; ma
 col_ctrl1, col_ctrl2, col_ctrl3, col_ctrl4 = st.columns([2, 1.5, 1.5, 2])
 with col_ctrl1:
 # Generamos una lista del 1 al 38 automáticamente
-lista_jornadas = [f"Jornada {i}" for i in range(1, 39)]
-
+    lista_jornadas = [f"Jornada {i}" for i in range(1, 39)]
 # Guardamos lo que elija el usuario en una variable
-jornada_seleccionada = st.selectbox("Seleccionar Jornada", lista_jornadas, index=23, label_visibility="collapsed")
+    jornada_seleccionada = st.selectbox("Seleccionar Jornada", lista_jornadas, index=23, label_visibility="collapsed")
 with col_ctrl2:
     st.markdown("""<div class="stat-box"><div style="background-color: rgba(19,236,91,0.2); color: #13ec5b; padding: 0.375rem; border-radius: 0.5rem;">✅</div><div><div style="font-size: 0.625rem; color: #92c9a4; text-transform: uppercase; font-weight: bold; letter-spacing: 0.05em;">Precisión</div><div style="font-size: 1.125rem; font-weight: bold; color: white;">80%</div></div></div>""", unsafe_allow_html=True)
 with col_ctrl3:
