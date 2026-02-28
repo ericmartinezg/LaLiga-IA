@@ -85,6 +85,26 @@ st.markdown("""
     }
     .badge-success { background-color: rgba(34, 197, 94, 0.1); color: #22c55e; padding: 0.125rem 0.5rem; border-radius: 0.25rem; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; }
     .badge-error { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.125rem 0.5rem; border-radius: 0.25rem; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; }
+    /* Estilos para los enlaces de navegación entre páginas */
+    [data-testid="stPageLink"] a {
+        background-color: rgba(19, 236, 91, 0.05) !important;
+        border: 1px solid rgba(19, 236, 91, 0.3) !important;
+        color: #13ec5b !important;
+        border-radius: 0.5rem !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+        text-decoration: none !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    [data-testid="stPageLink"] a:hover {
+        background-color: rgba(19, 236, 91, 0.15) !important;
+        border-color: rgba(19, 236, 91, 0.8) !important;
+        box-shadow: 0 0 15px rgba(19, 236, 91, 0.2) !important;
+        transform: translateY(-2px) !important;
+        color: #ffffff !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
