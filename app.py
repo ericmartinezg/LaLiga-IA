@@ -119,11 +119,11 @@ escudos = {
     "Real Sociedad" : "https://upload.wikimedia.org/wikipedia/sco/f/f1/Real_Sociedad_logo.svg",
     "Sevilla" : "https://upload.wikimedia.org/wikipedia/fr/8/8d/Logo_S%C3%A9ville_FC.svg",
     "Valencia" : "https://upload.wikimedia.org/wikipedia/sco/c/ce/Valenciacf.svg",
-    "Villarreal" : https://upload.wikimedia.org/wikipedia/pt/7/70/Villarreal_CF_logo.svg",
-    "Oviedo" : https://upload.wikimedia.org/wikipedia/an/6/6e/Real_Oviedo_logo.svg",
-    "Espanyol" : https://upload.wikimedia.org/wikipedia/fr/6/62/Logo_RCD_Espanyol_Barcelona_2022.svg",
-    "Elche" : https://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_Elche_CF_2021.svg",
-    "Levante" : https://upload.wikimedia.org/wikipedia/it/7/7b/Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg"
+    "Villarreal" : "https://upload.wikimedia.org/wikipedia/pt/7/70/Villarreal_CF_logo.svg",
+    "Oviedo" : "https://upload.wikimedia.org/wikipedia/an/6/6e/Real_Oviedo_logo.svg",
+    "Espanyol" : "https://upload.wikimedia.org/wikipedia/fr/6/62/Logo_RCD_Espanyol_Barcelona_2022.svg",
+    "Elche" : "https://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_Elche_CF_2021.svg",
+    "Levante" : "https://upload.wikimedia.org/wikipedia/it/7/7b/Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg"
 
 }
 ]
