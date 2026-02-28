@@ -101,7 +101,7 @@ st.markdown("<p style='color: #94a3b8; font-size: 1.125rem; text-align: center; 
 equipos = [
     "Alavés", "Athletic Club", "Atlético de Madrid", "Barcelona", 
     "Celta de Vigo", "Getafe", "Girona", "Mallorca", "Osasuna", "Rayo Vallecano", "Real Betis", 
-    "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante", "asas"
+    "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante"
 ]
 escudos = {
     "Real Madrid": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
