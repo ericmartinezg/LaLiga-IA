@@ -102,7 +102,7 @@ equipos = [
     "Alavés", "Athletic Club", "Atlético de Madrid", "Barcelona", 
     "Celta de Vigo", "Getafe", "Girona", "Mallorca", "Osasuna", "Rayo Vallecano", "Real Betis", 
     "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante", "asas"
-
+]
 escudos = {
     "Real Madrid": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
     "Barcelona": "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
