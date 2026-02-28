@@ -59,9 +59,15 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-col_logo, col_nav = st.columns([1, 1])
+col_logo, col_espacio, col_nav = st.columns([2, 1, 1])
+
 with col_logo:
     st.markdown("""<div style="display: flex; align-items: center; gap: 0.75rem;"><div style="width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: #13ec5b;">⚽</div><h2 style="font-size: 1.125rem; margin: 0; color: white;">LaLiga IA</h2></div>""", unsafe_allow_html=True)
+
+with col_espacio:
+    # Esta columna se queda vacía solo para hacer de "muro" y empujar el botón
+    st.empty()
+
 with col_nav:
     st.page_link("app.py", label="Volver al Predictor", icon="⬅️")
 
