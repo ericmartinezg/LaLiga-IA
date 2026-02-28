@@ -127,24 +127,37 @@ escudos = {
     "Levante" : "https://upload.wikimedia.org/wikipedia/it/7/7b/Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg"
 
 }
-# --- 5. ORES DE EQUIPOS ---
+# --- COLUMNAS DE LOS EQUIPOS ---
 col1, col2, col3 = st.columns([2, 1, 2])
 
 with col1:
-st.markdown(f'<img src="{escudos[equipo_local]}" style="width: 5rem; height: 5rem; object-fit: contain;">', unsafe_allow_html=True)
-equipo_local = st.selectbox("Seleccionar Equipo Local", equipos, index=0, label_visibility="collapsed")
+    # 1. PRIMERO preguntamos el equipo (así la variable ya existe)
+    equipo_local = st.selectbox("Seleccionar Equipo Local", equipos, index=0, label_visibility="collapsed")
+    
+    # 2. LUEGO pintamos la tarjeta y el escudo correspondiente
+    st.markdown(f"""
+    <div class="team-card">
+        <div style="font-size: 0.75rem; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; text-align: left; margin-bottom: 1rem;">Local</div>
+        <img src="{escudos[equipo_local]}" style="width: 8rem; height: 8rem; object-fit: contain; margin: 0 auto 1.5rem auto; display: block; drop-shadow: 0 0 10px rgba(255,255,255,0.1);">
+    </div>
+    """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("<div style='height: 50%;'></div><div class='vs-badge'>VS</div>", unsafe_allow_html=True)
 
 with col3:
-st.markdown(f'<img src="{escudos[equipo_visitante]}" style="width: 5rem; height: 5rem; object-fit: contain;">', unsafe_allow_html=True)
-equipo_visitante = st.selectbox("Seleccionar Equipo Visitante", equipos, index=1, label_visibility="collapsed")
+    # 1. PRIMERO preguntamos el equipo visitante
+    equipo_visitante = st.selectbox("Seleccionar Equipo Visitante", equipos, index=1, label_visibility="collapsed")
+    
+    # 2. LUEGO pintamos su tarjeta y escudo
+    st.markdown(f"""
+    <div class="team-card">
+        <div style="font-size: 0.75rem; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; text-align: right; margin-bottom: 1rem;">Visitante</div>
+        <img src="{escudos[equipo_visitante]}" style="width: 8rem; height: 8rem; object-fit: contain; margin: 0 auto 1.5rem auto; display: block; drop-shadow: 0 0 10px rgba(255,255,255,0.1);">
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
-
-# --- 6. BOTÓN MÁGICO Y LÓGICA DE IA ---
-col_btn1, col_btn2, col_btn3 = st.columns([2, 2, 2])
 
 with col_btn2:
     # ¡Aquí estaba el error! Ahora está bien indentado
