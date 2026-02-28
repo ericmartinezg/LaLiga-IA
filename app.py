@@ -187,7 +187,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # --- BOTÓN DE PREDICCIÓN ---
 # (Añadido: Creamos las columnas del botón que faltaban)
-col_btn1, col_btn2, col_btn3 = st.columns([3.25, 2, 3])
+col_btn1, col_btn2, col_btn3 = st.columns([3.50, 2, 3])
 
 with col_btn2:
     if st.button("✨ VER PREDICCIÓN DE LA IA"):
