@@ -102,7 +102,7 @@ equipos = [
     "Alavés", "Athletic Club", "Atlético de Madrid", "Barcelona", 
     "Celta de Vigo", "Getafe", "Girona", "Mallorca", "Osasuna", "Rayo Vallecano", 
     "Real Betis", "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", 
-    "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante", "asas"
+    "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante"
 ]
 escudos = {
     "Real Madrid": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
@@ -125,8 +125,8 @@ escudos = {
     "Espanyol" : "https://upload.wikimedia.org/wikipedia/fr/6/62/Logo_RCD_Espanyol_Barcelona_2022.svg",
     "Elche" : "https://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_Elche_CF_2021.svg",
     "Levante" : "https://upload.wikimedia.org/wikipedia/it/7/7b/Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg"
-
 }
+
 # --- COLUMNAS DE LOS EQUIPOS ---
 col1, col2, col3 = st.columns([2, 1, 2])
 
@@ -159,8 +159,11 @@ with col3:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
+# --- BOTÓN DE PREDICCIÓN ---
+# (Añadido: Creamos las columnas del botón que faltaban)
+col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+
 with col_btn2:
-    # ¡Aquí estaba el error! Ahora está bien indentado
     if st.button("✨ VER PREDICCIÓN DE LA IA"):
         if equipo_local == equipo_visitante:
             st.error("¡Un equipo no puede jugar contra sí mismo!")
