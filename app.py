@@ -109,7 +109,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 4. HEADER Y NAVEGACIÓN ---
-col_logo, col_nav = st.columns([1, 1])
+col_logo, col_espacio, col_nav = st.columns([2, 1, 1])
 with col_logo:
     st.markdown("""<div style="display: flex; align-items: center; gap: 0.75rem;"><div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: linear-gradient(to top right, #13ec5b, #0fa841); display: flex; align-items: center; justify-content: center; color: #102216; font-weight: bold;">⚽</div><h1 style="font-size: 1.125rem; margin: 0;">Calculadora <span style="color: #13ec5b;">IA</span> LaLiga</h1></div>""", unsafe_allow_html=True)
 with col_nav:
