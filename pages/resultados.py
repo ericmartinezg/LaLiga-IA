@@ -3,6 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Historial de Resultados - LaLiga IA", page_icon="📅", layout="wide", initial_sidebar_state="collapsed")
 
 st.markdown("""
+st.markdown("""
 <style>
     header {visibility: hidden;}
     footer {visibility: hidden;}
@@ -31,6 +32,31 @@ st.markdown("""
     .status-badge-success { display: flex; align-items: center; gap: 0.375rem; color: #13ec5b; background-color: rgba(19,236,91,0.1); border: 1px solid rgba(19,236,91,0.2); padding: 0.375rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
     .status-badge-error { display: flex; align-items: center; gap: 0.375rem; color: #ef4444; background-color: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); padding: 0.375rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
     .stat-box { background-color: #162e1e; border: 1px solid #23482f; border-radius: 0.75rem; padding: 0.5rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+
+    /* ESTILOS PARA EL BOTÓN DE NAVEGACIÓN (VOLVER) */
+    [data-testid="stPageLink"] > a {
+        background-color: rgba(19, 236, 91, 0.05) !important;
+        border: 1px solid rgba(19, 236, 91, 0.3) !important;
+        border-radius: 0.5rem !important;
+        padding: 0.5rem 1rem !important;
+        transition: all 0.3s ease !important;
+        text-decoration: none !important;
+    }
+    [data-testid="stPageLink"] p, 
+    [data-testid="stPageLink"] span {
+        color: #13ec5b !important;
+        font-weight: 700 !important;
+    }
+    [data-testid="stPageLink"] > a:hover {
+        background-color: rgba(19, 236, 91, 0.15) !important;
+        border-color: rgba(19, 236, 91, 0.8) !important;
+        box-shadow: 0 0 15px rgba(19, 236, 91, 0.2) !important;
+        transform: translateY(-2px) !important;
+    }
+    [data-testid="stPageLink"] > a:hover p,
+    [data-testid="stPageLink"] > a:hover span {
+        color: #ffffff !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
