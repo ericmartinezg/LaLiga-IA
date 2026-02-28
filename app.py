@@ -131,15 +131,15 @@ escudos = {
 col1, col2, col3 = st.columns([2, 1, 2])
 
 with col1:
-    st.markdown("<img src="{escudos[equipo_local]}" style="width: 5rem; height: 5rem; object-fit: contain;">
-    equipo_local = st.selectbox("Seleccionar Equipo Local", equipos, index=0, label_visibility="collapsed")
+st.markdown(f'<img src="{escudos[equipo_local]}" style="width: 5rem; height: 5rem; object-fit: contain;">', unsafe_allow_html=True)
+equipo_local = st.selectbox("Seleccionar Equipo Local", equipos, index=0, label_visibility="collapsed")
 
 with col2:
     st.markdown("<div style='height: 50%;'></div><div class='vs-badge'>VS</div>", unsafe_allow_html=True)
 
 with col3:
-    st.markdown("<img src="{escudos[equipo_local]}" style="width: 5rem; height: 5rem; object-fit: contain;">
-    equipo_visitante = st.selectbox("Seleccionar Equipo Visitante", equipos, index=1, label_visibility="collapsed")
+st.markdown(f'<img src="{escudos[equipo_visitante]}" style="width: 5rem; height: 5rem; object-fit: contain;">', unsafe_allow_html=True)
+equipo_visitante = st.selectbox("Seleccionar Equipo Visitante", equipos, index=1, label_visibility="collapsed")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
