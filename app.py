@@ -101,26 +101,50 @@ st.markdown("<p style='color: #94a3b8; font-size: 1.125rem; text-align: center; 
 equipos = [
     "Alavés", "Athletic Club", "Atlético de Madrid", "Barcelona", 
     "Celta de Vigo", "Getafe", "Girona", "Mallorca", "Osasuna", "Rayo Vallecano", "Real Betis", 
-    "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante"
+    "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante", "asas"
+
+escudos = {
+    "Real Madrid": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
+    "Barcelona": "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
+    "Alavés" : "https://upload.wikimedia.org/wikipedia/en/f/f8/Deportivo_Alaves_logo_%282020%29.svg"
+    "Athletic Club" : "https://upload.wikimedia.org/wikipedia/an/9/9f/Athletic_c_de_bilbao.png"
+    "Atlético de Madrid" : "https://upload.wikimedia.org/wikipedia/pt/c/c1/Atletico_Madrid_logo.svg"
+    "Celta de Vigo" : "https://upload.wikimedia.org/wikipedia/commons/4/47/Escudo_RC_Celta_de_Vigo.svg"
+    "Getafe" : "https://upload.wikimedia.org/wikipedia/de/d/de/Getafe_CF.svg"
+    "Girona" : "https://upload.wikimedia.org/wikipedia/fr/5/56/Logo_Girona_FC_-_2022.svg"
+    "Mallorca" : "https://upload.wikimedia.org/wikipedia/de/e/e0/Rcd_mallorca.svg"
+    "Osasuna" : "https://upload.wikimedia.org/wikipedia/fr/2/25/Logo_CA_Osasuna_2024.svg"
+    "Rayo Vallecano" : "https://upload.wikimedia.org/wikipedia/fr/4/41/Logo_Rayo_Vallecano_de_Madrid_2016.svg"
+    "Real Betis" : "https://upload.wikimedia.org/wikipedia/fr/1/13/Real_betis_logo.svg"
+    "Real Sociedad" : "https://upload.wikimedia.org/wikipedia/sco/f/f1/Real_Sociedad_logo.svg"
+    "Sevilla" : "https://upload.wikimedia.org/wikipedia/fr/8/8d/Logo_S%C3%A9ville_FC.svg"
+    "Valencia" : "https://upload.wikimedia.org/wikipedia/sco/c/ce/Valenciacf.svg"
+    "Villarreal" : https://upload.wikimedia.org/wikipedia/pt/7/70/Villarreal_CF_logo.svg"
+    "Oviedo" : https://upload.wikimedia.org/wikipedia/an/6/6e/Real_Oviedo_logo.svg"
+    "Espanyol" : https://upload.wikimedia.org/wikipedia/fr/6/62/Logo_RCD_Espanyol_Barcelona_2022.svg"
+    "Elche" : https://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_Elche_CF_2021.svg"
+    "Levante" : https://upload.wikimedia.org/wikipedia/it/7/7b/Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg"
+
+}
 ]
-# --- 5. SELECTORES DE EQUIPOS ---
+# --- 5. ORES DE EQUIPOS ---
 col1, col2, col3 = st.columns([2, 1, 2])
 
 with col1:
-    st.markdown("""<div class="team-card"><div style="font-size: 0.75rem; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; text-align: left; margin-bottom: 1rem;">Local</div><div style="width: 8rem; height: 8rem; border-radius: 50%; background-color: rgba(255,255,255,0.05); border: 4px solid rgba(255,255,255,0.05); margin: 0 auto 1.5rem auto; display: flex; align-items: center; justify-content: center; font-size: 3rem;">🛡️</div></div>""", unsafe_allow_html=True)
+    st.markdown("""<img src="{escudos[equipo_local]}" style="width: 5rem; height: 5rem; object-fit: contain;">
     equipo_local = st.selectbox("Seleccionar Equipo Local", equipos, index=0, label_visibility="collapsed")
 
 with col2:
     st.markdown("<div style='height: 50%;'></div><div class='vs-badge'>VS</div>", unsafe_allow_html=True)
 
 with col3:
-    st.markdown("""<div class="team-card"><div style="font-size: 0.75rem; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; text-align: right; margin-bottom: 1rem;">Visitante</div><div style="width: 8rem; height: 8rem; border-radius: 50%; background-color: rgba(255,255,255,0.05); border: 4px solid rgba(255,255,255,0.05); margin: 0 auto 1.5rem auto; display: flex; align-items: center; justify-content: center; font-size: 3rem;">🛡️</div></div>""", unsafe_allow_html=True)
+    st.markdown("""<img src="{escudos[equipo_local]}" style="width: 5rem; height: 5rem; object-fit: contain;">
     equipo_visitante = st.selectbox("Seleccionar Equipo Visitante", equipos, index=1, label_visibility="collapsed")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
 # --- 6. BOTÓN MÁGICO Y LÓGICA DE IA ---
-col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+col_btn1, col_btn2, col_btn3 = st.columns([2, 2, 2])
 
 with col_btn2:
     # ¡Aquí estaba el error! Ahora está bien indentado
