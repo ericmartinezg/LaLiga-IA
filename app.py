@@ -102,7 +102,7 @@ equipos = [
     "Alavés", "Athletic Club", "Atlético de Madrid", "Barcelona", 
     "Celta de Vigo", "Getafe", "Girona", "Mallorca", "Osasuna", "Rayo Vallecano", 
     "Real Betis", "Real Madrid", "Real Sociedad", "Sevilla", "Valencia", 
-    "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante"
+    "Villarreal", "Oviedo", "Espanyol", "Elche", "Levante", "asas"
 ]
 escudos = {
     "Real Madrid": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
@@ -127,7 +127,6 @@ escudos = {
     "Levante" : "https://upload.wikimedia.org/wikipedia/it/7/7b/Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg"
 
 }
-]
 # --- 5. ORES DE EQUIPOS ---
 col1, col2, col3 = st.columns([2, 1, 2])
 
